@@ -43,3 +43,39 @@ Some of the main Next.js features include:
 - It is a component provided by Next.js that allows to create links to navigate between pages in application.
 - Primarily used for declarative, client-side navigation. 
 - It prevents the default browser full-page refresh and fetches the new page content on the client side, resulting in a faster and smoother user experience.
+
+        import Link from 'next/link'
+        <Link href="/about" >About</Link>
+
+
+### useRouter()
+- It is a hook provided by Next.js that allows you to access the router object and its properties within your component.
+- Provides programmic control over the router and allows you to navigate to different pages or perform other routing-related actions in response to user interactions or events within your component.
+- It is useful when you need to handle navigation or access route-specific information directly in your component logic.
+
+    ```
+    "use client"
+    import { useRouter } from "next/navigation";
+    import React from "react";
+
+    const page = () => {
+    const router = useRouter();
+
+    const handleClick = (url) => {
+        router.push(url);
+    };
+    return (
+        <div>
+        <h3>useRouter Tutorial</h3>
+        <button onClick={() => handleClick("about")}>About</button>
+        <button onClick={() => handleClick("/about/me/personal")}>
+            Personal
+        </button>
+        </div>
+    );
+    };
+
+    export default page;
+    ```
+
+
