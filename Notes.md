@@ -121,26 +121,78 @@ Some of the main Next.js features include:
     where are those numbers are id and common pattern is like
   - http://localhost:3000/users/{id}
 - Create a folder named users and it contains another folder with name **[id]** which contains page.js i.e **users/[id]/page.jsx**
-                    |__users
-                        |_[id]
-                            |_page.jsx
+  |\__users
+  |_[id]
+  |\_page.jsx
 - now page.jsx has following code:
 
-    ```
-        "use client"
-        import React from "react";
+  ```
+      "use client"
+      import React from "react";
 
-        const User = ({ params }) => {
-        return <div>
-            Hello User: {params.id}
-        </div>;
-        };
-        
-        export default User;
-    ```
+      const User = ({ params }) => {
+      return <div>
+          Hello User: {params.id}
+      </div>;
+      };
+
+      export default User;
+  ```
+
 - Here in params.id id refers to **[id]** folder name and if folder name is **[name]** then params.name fetches the name from http://localhost:3000/users/govind and params.name is **govind**.
 
-
 #### Catch-All Routes:
-- In Next.js, the **[...foldername]** notation indicates that you are using a catch-all route, which allows you to capture multiple URL segments and treat them as a dynamic array of values. 
+
+- In Next.js, the **[...foldername]** notation indicates that you are using a catch-all route, which allows you to capture multiple URL segments and treat them as a dynamic array of values.
 - This is useful when you want to create dynamic routes that can handle varying number of URL segments.
+- My url is like http://localhost:3000/projects/software/front-end/react/stock-exchange i.e http://localhost:3000/projects is static and rest **software/front-end/react/stock-exchange/......** is dynamic and those values in general can be done by dynamic routing which needs nested folders and i.e more pain.
+
+        |__projects
+            |__[...details]
+                |__page.jsx
+
+  - now page.jsx has following code:
+
+  ```
+      "use client";
+      import React from "react";
+
+      const ProjectDetails = ({ params }) => {
+
+      console.log(params);
+
+      // for http://localhost:3000/projects/software/front-end/  react/stock-exchange, params logs as following
+
+        let paramsData = {
+        details: ["software", "front-end", "react", "stock-exchange"],
+        };
+
+      return <div>
+          Project Details: 
+          {params.details.join(", ")}
+      </div>;
+      };
+
+      /*
+        UI:
+
+        Project Details are:software, front-end, react, stock-exchange
+      
+      */
+
+      export default ProjectDetails;
+
+  ```
+
+- now **params** logs as 
+
+```
+    for url: 
+    http://localhost:3000/projects/software/front-end/react/stock-exchange
+
+
+    {
+        details: ["software", "front-end", "react", "stock-exchange"],
+    }
+```
+- Here details is coming from [...details]
