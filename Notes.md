@@ -207,3 +207,9 @@ Some of the main Next.js features include:
 - When used in a **streaming context**, this will insert a meta tag to emit the redirect on the client side. Otherwise it will serve a 307 HTTP redirect response to the caller.
 - If a resource doesn't exist, you can use the **notFound function** instead.
 - **Note:** If you prefer to return a 308 (Permanent) HTTP redirect instead of 307 (Temporary), you can use the **permanentRedirect function** instead.
+- Parameters: The redirect functions accepts 2 arguments:
+
+      redirect(path, type)
+  - path[String]: URL to redirect to and it can be relative or absolute path.
+  - type[String]: type of redirect to perform
+    - 'replace' (default) or 'push' (default in server actions)
