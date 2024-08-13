@@ -196,3 +196,14 @@ Some of the main Next.js features include:
     }
 ```
 - Here details is coming from [...details]
+
+
+### 404 No Path found:
+- By default Next.js handle this, but if you want to create your customized page, in app folder create a file whose name should be **not-found.jsx** or **not-found.js**
+
+### redirect:
+- This function allows you to redirect the user to another URL. 
+- It can be used in **Server Components**, **Client Components**, **Route Handlers** and **Server Actions**.
+- When used in a **streaming context**, this will insert a meta tag to emit the redirect on the client side. Otherwise it will serve a 307 HTTP redirect response to the caller.
+- If a resource doesn't exist, you can use the **notFound function** instead.
+- **Note:** If you prefer to return a 308 (Permanent) HTTP redirect instead of 307 (Temporary), you can use the **permanentRedirect function** instead.
