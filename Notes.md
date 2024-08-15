@@ -168,7 +168,7 @@ Some of the main Next.js features include:
         };
 
       return <div>
-          Project Details: 
+          Project Details:
           {params.details.join(", ")}
       </div>;
       };
@@ -177,17 +177,17 @@ Some of the main Next.js features include:
         UI:
 
         Project Details are:software, front-end, react, stock-exchange
-      
+
       */
 
       export default ProjectDetails;
 
   ```
 
-- now **params** logs as 
+- now **params** logs as
 
 ```
-    for url: 
+    for url:
     http://localhost:3000/projects/software/front-end/react/stock-exchange
 
 
@@ -195,21 +195,43 @@ Some of the main Next.js features include:
         details: ["software", "front-end", "react", "stock-exchange"],
     }
 ```
+
 - Here details is coming from [...details]
 
-
 ### 404 No Path found:
+
 - By default Next.js handle this, but if you want to create your customized page, in app folder create a file whose name should be **not-found.jsx** or **not-found.js**
 
 ### redirect:
-- This function allows you to redirect the user to another URL. 
+
+- This function allows you to redirect the user to another URL.
 - It can be used in **Server Components**, **Client Components**, **Route Handlers** and **Server Actions**.
 - When used in a **streaming context**, this will insert a meta tag to emit the redirect on the client side. Otherwise it will serve a 307 HTTP redirect response to the caller.
 - If a resource doesn't exist, you can use the **notFound function** instead.
 - **Note:** If you prefer to return a 308 (Permanent) HTTP redirect instead of 307 (Temporary), you can use the **permanentRedirect function** instead.
 - Parameters: The redirect functions accepts 2 arguments:
 
-      redirect(path, type)
+        redirect(path, type)
+
   - path[String]: URL to redirect to and it can be relative or absolute path.
   - type[String]: type of redirect to perform
     - 'replace' (default) or 'push' (default in server actions)
+
+  ```
+      import { redirect } from "next/navigation";
+      import React from "react";
+
+      const LoginPage = ({ params }) => {
+      console.log(params);
+      if (
+      params.credentials[0] === "govind" &&
+      params.credentials[1] === "maddala"
+      ) {
+      redirect("/");
+      }
+      return <div>{params.credentials}</div>;
+      };
+
+      export default LoginPage;
+
+  ```
