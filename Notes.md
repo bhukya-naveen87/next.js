@@ -235,3 +235,50 @@ Some of the main Next.js features include:
       export default LoginPage;
 
   ```
+
+### Rendering:
+
+- Rendering converts the code you write into user interfaces.
+- React and Next.js allow you to create hybrid web applications where parts of your code can be rendered on the server or the client.
+- Rendering Environments:
+  - The client refers to the browser on a user's device that sends a request to a server for your application code. It then turns the response from the server into a user interface.
+  - The server refers to the computer in a data center that stores your application code, receives requests from a client, and sends back an appropriate response.
+- Network Boundary:
+  - a conceptual line that separates the different environments. For example, the client and the server, or the server and the data store.
+  - In React, you choose where to place the client-server network boundary wherever it makes the most sense.
+  - Behind the scenes, the work is split into two parts: the **client module graph** and the **server module graph**.
+  - You can use the React "use client" convention to define the boundary. There's also a "use server" convention, which tells React to do some computational work on the server. 
+
+- ##### Server Components:
+  - allow you to write UI that can be rendered and optionally **cached** on the server.
+  - In Next.js, the rendering work is further split by route segments to enable streaming and partial rendering, and there are three different server rendering strategies:
+    - Static Rendering
+    - Dynamic Rendering
+    - Streaming
+  - Benefits: 
+    - **Data Fetching**: 
+      - allow you to move data fetching to the server, closer to your data source.
+      - improve performance by reducing:
+        - time it takes to fetch data needed for rendering, and
+        - number of requests the client needs to make.
+    - **Security**: 
+      - allow you to keep **sensitive data** and logic on the server, such as **tokens and API keys**, without the risk of exposing them to the client.
+    - **Caching**:
+      - result can be cached and reused on subsequent requests and across users.
+      - can improve performance and reduce cost by reducing the amount of rendering and data fetching done on each request.
+    - **Performance**
+    - **Initial Page Load and First Contentful Paint (FCP)**:
+      -On the server, we can generate HTML to allow users to view the page immediately, without waiting for the client to download, parse and execute the JavaScript needed to render the page.
+    - **Search Engine Optimization and Social Network Shareability**: 
+      -The rendered HTML can be used by search engine bots to index your pages and social network bots to generate social card previews for your pages.
+    - **Streaming**: 
+      - allow you to split the rendering work into chunks and stream them to the client as they become ready without having to wait for the entire page to be rendered on the server. 
+  - By default, Next.js uses Server Components. This allows you to automatically implement server rendering with no additional configuration, and you can opt into using Client Components when needed
+- ##### Client Components:
+  - Client Components allow you to write interactive UI that is prerendered on the server and can use client JavaScript to run in the browser.
+  - Benefits:
+    - **Interactivity**: Client Components can use state, effects, and event listeners, meaning they can provide immediate feedback to the user and update the UI.
+    - **Browser APIs**: Client Components have access to browser APIs, like geolocation or localStorage.
+  - **Using Client Components in Next.js**:
+    - To use Client Components, you can add the React "use client" directive at the top of a file, above your imports.
+    - by defining a "use client" in a file, all other modules imported into it, **including child components**, are considered part of the client bundle.
