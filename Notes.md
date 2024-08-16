@@ -282,3 +282,10 @@ Some of the main Next.js features include:
   - **Using Client Components in Next.js**:
     - To use Client Components, you can add the React "use client" directive at the top of a file, above your imports.
     - by defining a "use client" in a file, all other modules imported into it, **including child components**, are considered part of the client bundle.
+
+
+### Layout:
+- A layout is like a **blueprint** that helps you make all the pages of your website look the same.
+- It's a way to put common things, header, footer and other stuff that appears on every page, in one place.
+- So, a layout is a ahandy tool that lets you keep things **tidy and consistent** on your website.
+- For code, refer (layout_tut) folder

@@ -1,0 +1,16 @@
+.home-layout {
+  display: flex;
+  justify-content: space-around;
+  height: 50px;
+  background: black;
+}
+
+.home-layout-each {
+  align-content: center;
+}
+
+.home-layout-each a{
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
