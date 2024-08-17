@@ -318,20 +318,24 @@ Some of the main Next.js features include:
     export default MetaDataClass;
 
     ```
-  - 
+
+  -
+
 - #### Dynamic Metadata
+
   - You can use generateMetadata function to fetch metadata that requires dynamic values.
+
     ```
     export async function generateMetadata({ params, searchParams }, parent) {
       // read route params
       const id = params.id
-    
+
       // fetch data
       const product = await fetch(`https://.../${id}`).then((res) => res.json())
-    
+
       // optionally access and extend (rather than replace) parent metadata
       const previousImages = (await parent).openGraph?.images || []
-  
+
       return {
         title: product.title,
         openGraph: {
@@ -341,6 +345,74 @@ Some of the main Next.js features include:
     }
     export default function Page({ params, searchParams }) {}
     ```
+
 - **Good To Know**:
   - Both static and dynamic metadata through generateMetadata are only supported in **Server Components**.
 
+### Image:
+
+- `<Image />` tag importing from **next/image** helps you to render optimized pics in the UI.
+- Image rendering in Next.js is bit tricky. If you want to render **static images** i.e by importing following method is good.
+
+  ```
+    import React from "react";
+    import developmentImg from "@/public/images/development.png";
+    import Image from "next/image";
+    const ImagePage = () => {
+      return (
+        <div>
+          <Image
+            src={developmentImg}
+            alt="Developement"
+            width={900}
+            height={900}
+          />
+        </div>
+      );
+    };
+    export default ImagePage;
+  ```
+
+- Images rendering through **external urls** then another approach has to be maintained.
+
+  - Directly using urls for Image will throw an error like as follows:
+
+    ```
+    <Image src="https://unsplash.com/photos/coca-cola-can-z8PEoNIlGlg" alt="Developement" width={900} height={900}  />
+
+    ```
+
+    ```
+    Error: Invalid src prop (https://unsplash.com/photos/coca-cola-can-z8PEoNIlGlg) on `next/image`, hostname "unsplash.com" is not configured under images in your `next.config.js`
+    See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+    ```
+
+  - To avoid this error, in **next.config.js** give the domain name as follow:
+
+  ```
+  /** @type {import('next').NextConfig} */
+    const nextConfig = {
+        images: {
+            domains: ["images.unsplash.com"]
+        }
+    };
+
+    export default nextConfig;
+  ```
+
+- images.domains is deprecated, use **images.remotePatterns**
+
+  ```
+  /** @type {import('next').NextConfig} */
+    const nextConfig = {
+        images: {
+            remotePatterns: [
+                {
+                    protocol: 'https',
+                    hostname: 'images.unsplash.com',
+                },
+            ]
+        }
+    };
+    export default nextConfig;
+  ```
