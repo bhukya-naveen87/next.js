@@ -548,3 +548,55 @@ Some of the main Next.js features include:
   }
   export default CleintData;
   ```
+
+### Backend:
+
+- In app folder, create a folder with name **"api"**. Folder name should be **api** only.
+- Now I want to create routes for **user** service, then create a folder named **user** and in this create a file named \*_route.js_ and inside it we can create routes.
+- This route.js file will have routes and their naming convention is also fixed. Like for GET HTTP request, it will be GET method
+
+      app
+        |_api
+          |_user
+            |_route.js
+              |_ GET and so on
+
+  ```
+  And the url will be like: GET /api/user
+
+    import { NextResponse } from "next/server"
+    export const GET = () => {
+        return NextResponse.json(
+            {
+                message: "Message from product"
+            },
+            {
+                status: 201
+            }
+        )
+    };
+  ```
+- Dynamic routing:
+
+        app
+        |_api
+          |_user
+            |_[id]
+              |_route.js
+                |_ GET and so on
+
+  ```
+    import { NextRequest, NextResponse } from "next/server"
+
+    export const GET = (_, res) => {
+        return NextResponse.json(
+            {
+                message: "Message from users from dynamic routing.",
+                id: res.params.id
+            },
+            {
+                status: 201
+            }
+        )
+    }
+  ```

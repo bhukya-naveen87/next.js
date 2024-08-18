@@ -13,10 +13,12 @@ const CleintData = async () => {
     <div className="data__main">
       <div className="grid">
         {data.map((each) => {
-          const { id, title } = each;
+          const { id, title, body } = each;
           return (
             <div key={id} className="image-card">
-              <p>{title}</p>
+              <p>Title: {title}</p>
+              <hr />
+              <p>{body}</p>
             </div>
           );
         })}
