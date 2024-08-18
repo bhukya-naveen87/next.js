@@ -3,3 +3,54 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+.data__main {
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border: 1px solid;
+}
+
+.image-card:hover {
+  transform: scale(1.05);
+}
+
+.image-card p {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #005bb5;
+}
+
+.loading-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
