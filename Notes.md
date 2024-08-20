@@ -600,3 +600,5 @@ Some of the main Next.js features include:
         )
     }
   ```
+
+### Middleware
