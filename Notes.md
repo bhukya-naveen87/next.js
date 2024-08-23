@@ -576,6 +576,7 @@ Some of the main Next.js features include:
         )
     };
   ```
+
 - Dynamic routing:
 
         app
@@ -602,3 +603,97 @@ Some of the main Next.js features include:
   ```
 
 ### Middleware
+
+- allows you to run code before a request is completed.
+- Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+- Middleware runs before cached content and routes are matched.
+- #### Use cases:
+
+  - Integrating Middleware into your application can lead to significant improvements in performance, security, and user experience.
+  - **Authentication and Authorization**
+  - **Server-Side Redirects**
+  - **Path Rewriting**
+  - **Bot Detection**
+  - **Logging and Analytics**
+
+- Basic middleware function is: Here in UI, whenever you check for http://localhost:3000/about/<....>, below middleware executes.
+
+  ```
+      import { NextResponse } from 'next/server'
+
+      // This function can be marked `async` if using `await` inside
+      export function middleware(request) {
+        return NextResponse.redirect(new URL('/home', request.url))
+      }
+
+      // See "Matching Paths" below to learn more
+      export const config = {
+        matcher: '/about/:path*',
+      }
+  ```
+
+- If I want to execute middleware for every path, then I have to
+  ```
+    export const config = {
+          matcher: '/:path*',
+    }
+  ```
+- Now in my code, I want to check in cookies if there is user_type and if user_type is not exists, then I want to route to /login. So during login.
+- login/page.jsx code is:
+
+  ```
+  "use client";
+  import { useRouter } from "next/navigation";
+  import React, { useState } from "react";
+
+  const Login = () => {
+    const [user, setUser] = useState("");
+    const router = useRouter(); // useRouter hook for client-side navigation
+
+    const handleLogin = () => {
+      if (user && user.trim() && ["user", "admin"].includes(user)) {
+        document.cookie = `user_type=${user}; path=/;`; // Set user_type in a cookie
+        router.push("/home"); // Use router.push for client-side redirection
+        setUser("");
+      } else {
+        setUser("");
+        alert("Invalid User");
+      }
+    };
+
+    return (
+      <div>
+        <input
+          type="text"
+          value={user}
+          onChange={(e) => {
+            console.log(e.target.value)
+            setUser(e.target.value);
+          }}
+        />
+        {user && <button onClick={handleLogin}>Login</button>}
+      </div>
+    );
+  };
+
+  export default Login;
+  ```
+
+- But because of middleware code, /login page works not as expected. To work properly we have to **Modify the matcher to exclude static files and only target specific routes that need middleware processing.**
+  . So in config, we have to change to
+  ```
+    import { NextResponse } from 'next/server';
+    export const middleware = (request) => {
+        const userType = request.cookies.get("user_type");
+        if (request.nextUrl.pathname !== "/login" && !userType) {
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+        return NextResponse.next(); // Ensure normal processing for other requests
+    }
+
+    export const config = {
+        matcher: ["/((?!_next/static|favicon.ico).*)"]
+    }
+  ```
+- This configuration will prevent the middleware from running on static assets and certain paths like favicon.ico, which are not necessary to be handled by the middleware.
+- Matcher Exclusion: The matcher is now set to exclude routes like _next/static and favicon.ico, which are responsible for serving static assets.

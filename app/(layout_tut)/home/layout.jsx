@@ -2,8 +2,10 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "./home.css";
+import { useRouter } from "next/navigation";
 
 const Layout = ({ children }) => {
+  const router = useRouter();
   const [userType, setUserType] = useState("");
 
   useEffect(() => {
@@ -11,6 +13,12 @@ const Layout = ({ children }) => {
     const storedUserType = localStorage.getItem("user_type");
     setUserType(storedUserType);
   }, []);
+
+  const handleLogout = () => {
+    document.cookie =
+      "user_type=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    router.push("/login");
+  };
 
   return (
     <>
@@ -31,6 +39,9 @@ const Layout = ({ children }) => {
         </div>
         <div className="home-layout-each">
           <Link href="/home/about">About</Link>
+        </div>
+        <div className="home-layout-each">
+          <button className="home-layout-button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
 

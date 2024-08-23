@@ -8,7 +8,7 @@ const Login = () => {
 
   const handleLogin = () => {
     if (user && user.trim() && ["user", "admin"].includes(user)) {
-      localStorage.setItem("user_type", user);
+      document.cookie = `user_type=${user}; path=/;`; // Set user_type in a cookie
       router.push("/home"); // Use router.push for client-side redirection
       setUser("");
     } else {
