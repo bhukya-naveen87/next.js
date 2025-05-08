@@ -156,13 +156,12 @@ Some of the main Next.js features include:
   ```
       "use client";
       import React from "react";
+      import { useParams } from 'next/navigation'
 
-      const ProjectDetails = ({ params }) => {
-
+      const ProjectDetails = () => {
+      const params = useParams();
       console.log(params);
-
       // for http://localhost:3000/projects/software/front-end/  react/stock-exchange, params logs as following
-
         let paramsData = {
         details: ["software", "front-end", "react", "stock-exchange"],
         };
@@ -183,6 +182,7 @@ Some of the main Next.js features include:
       export default ProjectDetails;
 
   ```
+  
 
 - now **params** logs as
 
